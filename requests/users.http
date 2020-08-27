@@ -1,0 +1,54 @@
+# Get all users.
+GET http://localhost:3000/api/users/
+Content-Type: application/json
+
+<> 2020-08-26T092015.200.json
+
+
+####
+# Delete all users.
+DELETE http://localhost:3000/api/users/
+Content-Type: application/json
+
+
+
+####
+# Add new user
+POST http://localhost:3000/api/users/
+Content-Type: application/json
+
+{
+  "name": "Patryk",
+  "password": "admin"
+}
+
+<> 2020-08-26T085426.201.txt
+
+
+####
+# Login
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "name": "Patryk",
+  "password": "admin"
+}
+
+####
+# Get user with specific id user info.
+GET http://localhost:3000/api/users/5f459054508bae1a80f3d57bs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YWZlMjk0ZWZmZTFjY2MzZjU5YjkiLCJpYXQiOjE1OTg0NjgwOTh9.lwhz0P8MLmk80gb5Sjyw9yfIEPbwNIDXcpkXuYo92-w
+
+
+####
+# Delete specific user
+DELETE http://localhost:3000/api/users/5f46adb8963c4e663410ee42ss
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ1OTA1NDUwOGJhZTFhODBmM2Q1N2IiLCJpYXQiOjE1OTg0Njc3Mzd9.BAj0DUr10NBG0FR7yUkcBEUbOG9NvfE1a2SBTCV3Sn4
+
+
+
+####
+
