@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
-const ingredientListSchema = require('./ingredientList')
+const DaysSchema = require('./Day')
 
 const userSchema = new mongoose.Schema(
     {
-        name: {
+        username: {
             type: String,
             required: true,
         },
@@ -16,10 +16,41 @@ const userSchema = new mongoose.Schema(
             required: true,
             default: false
         },
-        ingredientsLists: {
-            type: [ingredientListSchema],
+        days: {
+            type: [DaysSchema],
             required: false,
-            default: []
+            default: [
+                {
+                    date: Date.now(),
+                    meals: {
+                        products: [
+                            {
+                                name: 'Kurczak',
+                                grams: 0
+                            }
+                        ],
+                        caloriesSummary: null
+                    }
+                }
+            ]
+        },
+        products: {
+            type: [Object],
+            required: false,
+            default: [
+                {
+                    name: 'Kurczak',
+                    kcal: 100
+                },
+                {
+                    name: 'Kanapka',
+                    kcal: 200
+                },
+                {
+                    name: 'API',
+                    kcal: 200
+                }
+            ]
         }
     }
 )

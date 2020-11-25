@@ -13,7 +13,10 @@ db.once('open', () => console.log('Successfully connected.'))
 const usersRouter = require('./routes/users')
 app.use('/api/users', usersRouter)
 
-const ingredientListsRouter = require('./routes/ingredientsLists')
-app.use('/api/ingredientsList', ingredientListsRouter)
+const daysRouter = require('./routes/days')
+app.use('/api/days', daysRouter)
 
-app.listen(process.env.PORT)
+const productsRouter = require('./routes/products')
+app.use('/api/products', productsRouter)
+
+app.listen(process.env.PORT || 3000)

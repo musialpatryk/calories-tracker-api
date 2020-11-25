@@ -70,8 +70,7 @@ router.post(
     async (req, res) => {
 
         try{
-            console.log(req.body.password)
-            const currentUser = await User.findOne({name: req.body.name})
+            const currentUser = await User.findOne({username: req.body.name})
 
             if(currentUser == null) return res.sendStatus(404)
 
@@ -79,7 +78,6 @@ router.post(
                 const accessToken = jwt.sign({_id: currentUser._id}, process.env.ACCESS_TOKEN_SECRET)
                 return res.status(200).json({accessToken: accessToken})
             }
-
 
         } catch (err) {
             console.log(err)
@@ -95,11 +93,10 @@ router.post(
 router.post(
     '/',
     async (req, res) => {
-        const hashedPassword = await bcrypt.hash(req.body.password,10)
-        const newUser = new User({name: req.body.name, password: hashedPassword, isSuperUser: req.body.isSuperUser})
-
         try{
-            if(await User.exists({ name: newUser.name })) {
+            const hashedPassword = await bcrypt.hash(req.body.password,10)
+            const newUser = new User({username: req.body.name, password: hashedPassword, isSuperUser: req.body.isSuperUser})
+            if(await User.exists({ username: newUser.name })) {
                 return res.status(400).json({ message: 'User already exists.'})
             }
             await newUser.save()

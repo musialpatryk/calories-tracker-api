@@ -2,8 +2,6 @@
 GET http://localhost:3000/api/users/
 Content-Type: application/json
 
-<> 2020-08-26T092015.200.json
-
 
 ####
 # Delete all users.
@@ -22,7 +20,15 @@ Content-Type: application/json
   "password": "admin"
 }
 
-<> 2020-08-26T085426.201.txt
+####
+# Add new user with admin rights.
+POST http://localhost:3000/api/users/
+Content-Type: application/json
+
+{
+  "name": "a",
+  "password": "a"
+}
 
 
 ####
@@ -37,18 +43,37 @@ Content-Type: application/json
 
 ####
 # Get user with specific id user info.
-GET http://localhost:3000/api/users/5f459054508bae1a80f3d57bs
+GET http://localhost:3000/api/users/5f578128fb2ffb466cab2ebe
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YWZlMjk0ZWZmZTFjY2MzZjU5YjkiLCJpYXQiOjE1OTg0NjgwOTh9.lwhz0P8MLmk80gb5Sjyw9yfIEPbwNIDXcpkXuYo92-w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjU3ODEyOGZiMmZmYjQ2NmNhYjJlYmUiLCJpYXQiOjE1OTk1NzAyNDF9.Bzsg6V09DdRHzy9gLmUFQD6vj69EufTxub9pFtT9YUE
 
 
 ####
 # Delete specific user
 DELETE http://localhost:3000/api/users/5f46adb8963c4e663410ee42ss
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ1OTA1NDUwOGJhZTFhODBmM2Q1N2IiLCJpYXQiOjE1OTg0Njc3Mzd9.BAj0DUr10NBG0FR7yUkcBEUbOG9NvfE1a2SBTCV3Sn4
-
-
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhjOTU0ZjhhNTFiODMyZjg3YWNhMmIiLCJpYXQiOjE2MDMzOTA5NDF9.c9CgmoN5k-IKpzOP58_63fXfVnsflIJP5Sj16adsMt8
 ####
 
+####
+# Update meals
+POST http://localhost:3000/api/days/meals/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhjOTU0ZjhhNTFiODMyZjg3YWNhMmIiLCJpYXQiOjE2MDMzOTA4MDZ9.-vFV6Otw3xDgdibooGEAwBmlDRQEJp2_v2xKiPr99qY
+
+{
+  "meals": {
+    "products": [
+      {
+        "name": "Kurczak",
+        "grams": 0
+      },
+      {
+        "name": "Kanapka",
+        "grams": 10
+      }
+    ],
+    "caloriesSummary": null
+  }
+}
+####
