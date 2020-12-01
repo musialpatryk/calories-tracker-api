@@ -24,10 +24,6 @@ const userSchema = new mongoose.Schema(
                     date: Date.now(),
                     meals: {
                         products: [
-                            {
-                                name: 'Kurczak',
-                                grams: 0
-                            }
                         ],
                         caloriesSummary: null
                     }
@@ -36,21 +32,7 @@ const userSchema = new mongoose.Schema(
         },
         products: {
             type: [Object],
-            required: false,
-            default: [
-                {
-                    name: 'Kurczak',
-                    kcal: 100
-                },
-                {
-                    name: 'Kanapka',
-                    kcal: 200
-                },
-                {
-                    name: 'API',
-                    kcal: 200
-                }
-            ]
+            required: false
         }
     }
 )
