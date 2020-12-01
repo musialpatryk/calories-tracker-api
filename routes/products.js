@@ -34,6 +34,7 @@ router.post(
             const user = await User.findOne({ _id: req.user._id })
             if(user === null) return res.sendStatus(404)
             if(req.body){
+                if ( user.products.some(({name}) => name === req.body.name) )  return res.status(406).json({})
                 user.products.push(req.body);
                 await user.save()
                 return res.status(200).json({})
