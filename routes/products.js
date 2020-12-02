@@ -47,5 +47,32 @@ router.post(
     }
 )
 
+/**
+ * Delete products with name.
+ */
+router.delete(
+    '/:name',
+    authenticateToken,
+    async (req, res) => {
+        try{
+            const user = await User.findOne({ _id: req.user._id })
+            if(user === null) return res.sendStatus(404)
+            if(req.body){
+                
+                if(req.params.name === null) return res.status(400).json({}) 
+                const productIndex = user.products.findIndex( product => product.name === req.params.name )
+                if(productIndex === -1) return res.status(400).json({}) 
+                user.products.splice( productIndex, 1);
+                await user.save()
+                return res.status(200).json(user.products)
+            }
+
+        } catch(err) {
+            console.log(err.message)
+            res.sendStatus(500)
+        }
+    }
+)
+
 
 module.exports = router
