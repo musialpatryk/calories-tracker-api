@@ -1,11 +1,11 @@
 {
-  "name": "Backend-API",
+  "name": "calories-tracker-api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodejs server.js",
-    "devStart": "nodemon server.js"
+    "start-dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
