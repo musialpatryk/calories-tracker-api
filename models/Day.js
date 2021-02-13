@@ -25,6 +25,4 @@ const daySchema = new mongoose.Schema(
     }
 )
 
-
-
 module.exports = daySchema
