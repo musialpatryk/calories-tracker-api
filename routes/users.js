@@ -1,18 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-const authenticateToken = require("../middleware/authToken");
-const User = require("../models/user");
+const authenticateToken = require('../middleware/authToken');
+const User = require('../models/user');
 
 /**
  * Delete all users
  */
-router.delete("/", async (req, res) => {
+router.delete('/', async (req, res) => {
   try {
     await User.deleteMany({});
-    return res.status(200).json({ message: "All users deleted." });
+    return res.status(200).json({ message: 'All users deleted.' });
   } catch (err) {
     console.log(err.message);
     return res.sendStatus(500);
@@ -22,17 +22,14 @@ router.delete("/", async (req, res) => {
 /**
  * Get user info.
  */
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
   if (req.user.id === null) return res.sendStatus(403);
 
   try {
     const currentUser = await User.findOne({ _id: req.user._id });
     const userToShow = await User.findOne({ _id: req.params.id });
 
-    if (
-      currentUser._id.toString() === userToShow._id.toString() ||
-      currentUser.isSuperUser === true
-    ) {
+    if (currentUser._id.toString() === userToShow._id.toString() || currentUser.isSuperUser === true) {
       return res.status(200).json(userToShow);
     }
     return res.sendStatus(403);
@@ -45,17 +42,14 @@ router.get("/:id", authenticateToken, async (req, res) => {
 /**
  * Check with user can login with specific name and password and return JWT.
  */
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const currentUser = await User.findOne({ username: req.body.name });
 
     if (currentUser == null) return res.sendStatus(404);
 
     if (await bcrypt.compare(req.body.password, currentUser.password)) {
-      const accessToken = jwt.sign(
-        { _id: currentUser._id },
-        process.env.ACCESS_TOKEN_SECRET
-      );
+      const accessToken = jwt.sign({ _id: currentUser._id }, process.env.ACCESS_TOKEN_SECRET);
       return res.status(200).json({ accessToken: accessToken });
     }
   } catch (err) {
@@ -68,7 +62,7 @@ router.post("/login", async (req, res) => {
  * Add new user.
  * This api checks if user already exists before creating new one. Add new user id to path.
  */
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = new User({
@@ -77,7 +71,7 @@ router.post("/", async (req, res) => {
       isSuperUser: req.body.isSuperUser,
     });
     if (await User.exists({ username: newUser.name })) {
-      return res.status(400).json({ message: "User already exists." });
+      return res.status(400).json({ message: 'User already exists.' });
     }
     await newUser.save();
     return res.sendStatus(201);
@@ -90,17 +84,14 @@ router.post("/", async (req, res) => {
 /**
  * Delete users with specific id.
  */
-router.delete("/:id", authenticateToken, async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
   if (req.user.id === null) return res.sendStatus(403);
 
   try {
     const currentUser = await User.findOne({ _id: req.user._id });
     const userToDelete = await User.findOne({ _id: req.params.id });
 
-    if (
-      currentUser._id.toString() === userToDelete._id.toString() ||
-      currentUser.isSuperUser === true
-    ) {
+    if (currentUser._id.toString() === userToDelete._id.toString() || currentUser.isSuperUser === true) {
       await userToDelete.delete();
       return res.sendStatus(200);
     }
