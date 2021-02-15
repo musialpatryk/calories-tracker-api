@@ -4,6 +4,13 @@ Calories tracker is web app created to calculate calories you are eating through
 
 This project provides API endpoint to front-end application from [this repository](https://github.com/musialpatryk/calories-tracker-front).
 
+## Technologies
+
+- Node.js,
+- Express.js,
+- JSON Web Tokens,
+- MongoDB and Mongoose.
+
 ## How to start project locally?
 
 ### Requirements
